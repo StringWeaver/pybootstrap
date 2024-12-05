@@ -17,4 +17,3 @@ layout = pn.Column(a_slider, b_slider, pn.bind(add, a_slider.param.value, b_slid
 
 layout.servable()
 server = pn.serve(layout, threaded=True) 
-server.show()

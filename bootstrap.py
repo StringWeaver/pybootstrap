@@ -15,7 +15,10 @@ def install_deps(python_bin):
 if __name__ == "__main__":
     workdir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(workdir)
-    python_bin = os.path.join(workdir,'pyvenv','bin','python')
+    if os.name == "nt":
+        python_bin = os.path.join(workdir,'pyvenv','Scripts','python.exe')
+    else:
+        python_bin = os.path.join(workdir,'pyvenv','bin','python')
     activate_venv('pyvenv',python_bin)
     install_deps(python_bin)
     subprocess.run([python_bin,'main.py'])

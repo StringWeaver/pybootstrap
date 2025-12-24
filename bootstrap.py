@@ -21,5 +21,5 @@ if __name__ == "__main__":
         python_bin = os.path.join(workdir,'pyvenv','bin','python')
     activate_venv('pyvenv',python_bin)
     install_deps(python_bin)
-    subprocess.run([python_bin,'main.py'])
-    subprocess.run([python_bin, 'app.py'])
+    subprocess.run([python_bin,'test.py'])
+    subprocess.run([python_bin, "-m", "panel", "serve", "app.py", "--show", "--autoreload"])

@@ -1,17 +1,22 @@
 import panel as pn
-import io
+from pathlib import Path
+
 pn.extension()
-file_input = pn.widgets.FileInput(accept=".mp4")
 
-def video_player(file):
-    if file is not None:
-        file_input.save('test.mp4')
-        return pn.pane.Video('test.mp4', width=640)
+file_input = pn.widgets.FileInput(accept='.png,.jpg,.jpeg,.gif,.bmp', name='选择图片')
 
-layout = pn.Column(file_input, pn.bind(video_player,file_input.value))
-pn.bind(print, file_input.param.filename, watch=True)
 
-layout.show()
+image_pane = pn.pane.PNG(width=600, height=400)
 
-# layout.servable()
-# server = pn.serve(layout, threaded=True) 
+def update_image(event):
+    # event.new 是 bytes
+    image_pane.object = event.new
+
+file_input.param.watch(update_image, 'value')
+
+layout = pn.Row(
+    pn.Column("选择图片", file_input, width=200),
+    pn.Column("图片预览", image_pane)
+)
+
+layout.servable()
